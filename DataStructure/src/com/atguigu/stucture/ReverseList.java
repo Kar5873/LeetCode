@@ -21,6 +21,8 @@ public class ReverseList {
         list1.addOrder(new Node("二号", 2));
         list1.list();
     }
+
+
 }
 
 class MyLinkedList {

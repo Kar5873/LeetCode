@@ -9,26 +9,48 @@ import com.leetcode.structure.d07.bean.ListNode;
 public class RemoveLinkedListElements {
     public static void main(String[] args) {
         RemoveLinkedListElements elements = new RemoveLinkedListElements();
-        System.out.println(elements.removeElements(new ListNode(1
-                , new ListNode(2
+        System.out.println(elements.removeElements(new ListNode(6
                 , new ListNode(6
-                , new ListNode(3
-                , new ListNode(4
-                , new ListNode(5
+                , new ListNode(6
+                , new ListNode(6
+                , new ListNode(6
+                , new ListNode(6
                 , new ListNode(6))))))), 6));
     }
 
+    /**
+     * 迭代
+     * @param head
+     * @param val
+     * @return
+     */
     public ListNode removeElements(ListNode head, int val) {
         ListNode tmp = new ListNode(0, head);
         ListNode res = tmp;
-        while (head != null) {
-            if ( head.val == val){
+        while (tmp.next != null) {
+            if (tmp.next.val == val) {
                 tmp.next = tmp.next.next;
-                //head = head.next;
+            } else {
+                tmp = tmp.next;
             }
-            head = head.next;
-            tmp = tmp.next;
         }
         return res.next;
     }
+
+
+    /**
+     * 递归
+     * @param head
+     * @param val
+     * @return
+     */
+    public ListNode removeElements1(ListNode head, int val) {
+        if (head == null) {
+            return head;
+        }
+        head.next = removeElements1(head.next, val);
+        return head.val == val ? head.next : head;
+    }
+
+
 }

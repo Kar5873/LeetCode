@@ -1,4 +1,4 @@
-package com.leetcode.dynamic;
+package com.leetcode.dynamic.d01;
 
 /**
  * 泰波那契序列 Tn 定义如下：
