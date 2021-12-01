@@ -7,6 +7,8 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 
 /**
+ * 反转链表
+ *
  * @author kar
  * @create 2021-11-27 11:30
  */

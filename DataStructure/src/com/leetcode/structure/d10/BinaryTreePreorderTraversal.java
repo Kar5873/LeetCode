@@ -5,7 +5,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * 前序遍历
+ *
  * 中左右
+ *
  * @author kar
  * @create 2021-11-29 20:42
  */

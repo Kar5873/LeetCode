@@ -3,6 +3,8 @@ package com.leetcode.structure.d07;
 import com.leetcode.structure.d07.bean.ListNode;
 
 /**
+ * 移除链表中的元素
+ *
  * @author kar
  * @create 2021-11-26 22:49
  */

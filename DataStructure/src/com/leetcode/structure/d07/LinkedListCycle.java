@@ -3,6 +3,8 @@ package com.leetcode.structure.d07;
 import java.util.HashMap;
 
 /**
+ * 判断链表中是否有环
+ *
  * @author Kar
  * @create 2021-11-26 上午8:52
  */
