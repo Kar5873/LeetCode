@@ -1,5 +1,6 @@
 package com.atguigu.stucture.d02;
 
+import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.regex.Matcher;
@@ -16,32 +17,67 @@ import java.util.regex.Pattern;
 public class CalculateWithStack {
     public static void main(String[] args) {
         CalculateWithStack calculate = new CalculateWithStack();
-        calculate.calculate(" 3+2 * 2");
+        System.out.println(calculate.calculate("12-3*4"));
 
     }
 
     public int calculate(String str) {
         String[] nums = str.replace(" ", "").split("[+*/\\-]");
-        String[] oper = str.replace(" ", "").split("\\d");
+        String[] oper = str.replace(" ", "").split("\\d+");
         Deque<Integer> stackNum = new LinkedList<>();
-        stackNum.push(Integer.valueOf(nums[0]));
-        for (int i = 0; i < oper.length; i++) {
+        stackNum.push(Integer.parseInt(nums[0]));
+        for (int i = 1; i < oper.length; i++) {
             if ("+".equals(oper[i])) {
-                stackNum.push(Integer.parseInt(nums[i + 1]));
-            }else if ("-".equals(oper[i])){
-                stackNum.push(-Integer.parseInt(nums[i + 1]));
+                stackNum.push(Integer.parseInt(nums[i]));
+            } else if ("-".equals(oper[i])) {
+                stackNum.push(-Integer.parseInt(nums[i]));
             } else {
                 if ("*".equals(oper[i])) {
-                    stackNum.push(stackNum.pop() * Integer.parseInt(nums[i + 1]));
-                }else {
-                    stackNum.push(stackNum.pop() / Integer.parseInt(nums[i + 1]));
+                    stackNum.push(stackNum.pop() * Integer.parseInt(nums[i]));
+                } else {
+                    stackNum.push(stackNum.pop() / Integer.parseInt(nums[i]));
                 }
             }
         }
-        int size = stackNum.size();
-        for (int i = 0; i < size; i++) {
-
+        int ans = 0;
+        while (!stackNum.isEmpty()) {
+            ans += stackNum.pop();
         }
-        return 0;
+        return ans;
+    }
+
+    //
+    public int calculate1(String s) {
+        s = s.replace(" ", "");
+        Deque<Integer> q = new ArrayDeque<>();
+        char flag = '+';
+        int num = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (Character.isDigit(s.charAt(i))) {
+                num = num * 10 + (s.charAt(i) - '0');
+            }
+            if (!Character.isDigit(s.charAt(i)) || i == s.length() - 1) {
+                switch (flag) {
+                    case '+':
+                        q.push(num);
+                        break;
+                    case '-':
+                        q.push(-num);
+                        break;
+                    case '*':
+                        q.push(q.pop() * num);
+                        break;
+                    case '/':
+                        q.push(q.pop() / num);
+                        break;
+                }
+                flag = s.charAt(i);
+                num = 0;
+            }
+        }
+        while (!q.isEmpty()) {
+            num += q.pop();
+        }
+        return num;
     }
 }
