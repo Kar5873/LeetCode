@@ -13,14 +13,26 @@ import java.util.List;
  * @create 2021-12-07 下午12:37
  */
 public class PascalsTriangle {
+    public static void main(String[] args) {
+        PascalsTriangle pascalsTriangle = new PascalsTriangle();
+        System.out.println(pascalsTriangle.generate(1));
+        System.out.println(pascalsTriangle.generate(3));
+        System.out.println(pascalsTriangle.generate(10));
+
+    }
     public List<List<Integer>> generate(int numRows) {
         List<List<Integer>> ans = new ArrayList<>();
-        int[] dp = new int[numRows+1];
-        dp[0] = 0;
-        dp[1] = 1;
-        for (int i = 2; i <= numRows; i++) {
-            dp[i] = dp[i-2]+dp[i-1];
+        for (int i = 0; i < numRows; i++) {
+            List<Integer> list = new ArrayList<>();
+            for (int j = 0; j <= i; j++) {
+                if (j == 0 || j==i){
+                    list.add(1);
+                }else {
+                    list.add(ans.get(i-1).get(j-1) + ans.get(i-1).get(j));
+                }
+            }
+            ans.add(list);
         }
-
+        return ans;
     }
 }
