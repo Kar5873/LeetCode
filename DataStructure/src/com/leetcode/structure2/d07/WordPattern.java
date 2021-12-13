@@ -26,6 +26,34 @@ public class WordPattern {
                 "s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s s t t"));
     }
 
+    public boolean wordPattern1(String pattern, String str) {
+        Map<String, Character> str2ch = new HashMap<String, Character>();
+        Map<Character, String> ch2str = new HashMap<Character, String>();
+        int m = str.length();
+        int i = 0;
+        for (int p = 0; p < pattern.length(); ++p) {
+            char ch = pattern.charAt(p);
+            if (i >= m) {
+                return false;
+            }
+            int j = i;
+            while (j < m && str.charAt(j) != ' ') {
+                j++;
+            }
+            String tmp = str.substring(i, j);
+            if (str2ch.containsKey(tmp) && str2ch.get(tmp) != ch) {
+                return false;
+            }
+            if (ch2str.containsKey(ch) && !tmp.equals(ch2str.get(ch))) {
+                return false;
+            }
+            str2ch.put(tmp, ch);
+            ch2str.put(ch, tmp);
+            i = j + 1;
+        }
+        return i >= m;
+    }
+
     public boolean wordPattern(String pattern, String s) {
         String[] words = s.split(" ");
         if (words.length != pattern.length()) {
@@ -34,7 +62,10 @@ public class WordPattern {
         int n = pattern.length();
         Map<Object, Integer> map = new HashMap<>();
         for (int i = 0; i < n; i++) {
-            if (map.put(words[i], i) != map.put(pattern.charAt(i), i)) {
+            Integer old1 = map.put(words[i], i);
+            Integer old2 = map.put(pattern.charAt(i), i);
+            // Integer超过128不能直接使用“=”判断
+            if (old1 != old2 && !(old1 == null ? "" : old1).equals(old2)) {
                 return false;
             }
         }
