@@ -22,8 +22,37 @@ public class LongestPalindromicSubstring {
         System.out.println(longestPalindromicSubstring.longestPalindrome("ababd"));
     }
 
-    // 动态规划
+    // 方法二：中心扩展算法
     public String longestPalindrome(String s) {
+        int n = s.length();
+        if (n < 2) {
+            return s;
+        }
+        int maxLen = 0;
+        int core = 0;
+        for (int i = 0; i < n; i++) {
+            int len1 = expandAroundCenter(s, i, i);
+            int len2 = expandAroundCenter(s, i, i + 1);
+            int len = Math.max(len1, len2);
+            if (maxLen < len) {
+                maxLen = len;
+                core = i;
+            }
+        }
+        return s.substring(core - (maxLen - 1) / 2, core + maxLen / 2 + 1);
+    }
+
+    private int expandAroundCenter(String s, int left, int right) {
+        while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
+            left--;
+            right++;
+        }
+        return right - left - 1;
+    }
+
+
+    // 动态规划
+    public String longestPalindrome2(String s) {
         int n = s.length();
         if (n < 2) {
             return s;
@@ -52,13 +81,13 @@ public class LongestPalindromicSubstring {
                         dp[i][j] = dp[i + 1][j - 1];
                     }
                 }
-                if (dp[i][j] && L > maxLen){
+                if (dp[i][j] && L > maxLen) {
                     maxLen = L;
                     begin = i;
                 }
             }
         }
-        return s.substring(begin,begin+maxLen);
+        return s.substring(begin, begin + maxLen);
     }
 
 
