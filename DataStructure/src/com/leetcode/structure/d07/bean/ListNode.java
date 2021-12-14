@@ -22,9 +22,13 @@ public class ListNode {
 
     @Override
     public String toString() {
-        return "ListNode{" +
-                "val=" + val +
-                ", next=" + next +
-                '}';
+        String output = "[" + val;
+        ListNode tmp = next;
+        while (tmp != null) {
+            output += "," + tmp.val;
+            tmp = tmp.next;
+        }
+        output += "]";
+        return output;
     }
 }
