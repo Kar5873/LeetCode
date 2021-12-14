@@ -17,6 +17,7 @@ public class MinimumPathSum {
 
     }
 
+    // 动态规划，最小路径和dp[i][j]的值+=上方dp或左方dp的最小值
     public int minPathSum(int[][] grid) {
         int m = grid.length;
         int n = grid[0].length;
