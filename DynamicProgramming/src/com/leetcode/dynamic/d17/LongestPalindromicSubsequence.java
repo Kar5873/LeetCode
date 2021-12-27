@@ -11,10 +11,14 @@ package com.leetcode.dynamic.d17;
  * @create 2021-12-14 22:10
  */
 public class LongestPalindromicSubsequence {
+    public static void main(String[] args) {
+        LongestPalindromicSubsequence longestPalindromicSubsequence = new LongestPalindromicSubsequence();
+        System.out.println(longestPalindromicSubsequence.longestPalindromeSubseq("abababbbababba"));
+    }
     public int longestPalindromeSubseq(String s) {
         int n = s.length();
         int[][] dp = new int[n][n];
-        for (int i = n - 1; i > 0; i--) {
+        for (int i = n - 1; i >= 0; i--) {
             dp[i][i] = 1;
             char c1 = s.charAt(i);
             for (int j = i + 1; j < n; j++) {
